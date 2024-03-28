@@ -32,7 +32,7 @@
     - [Audit Reports](#audit-reports)
     - [Blogs](#blogs)
     - [zkHACK/CTF/Puzzles](#zkhackctfpuzzles)
-    - [Vedios](#vedios)
+    - [Videos](#videos)
     - [Miscellaneous](#miscellaneous)
 
 
@@ -162,17 +162,16 @@ The backend is a proving system that leans towards the cryptographic part, so th
 
 ##### Frozen Heart
   
-    [TrailOfBit Blog](https://blog.trailofbits.com/2022/04/13/part-1-coordinated-disclosure-of-vulnerabilities-affecting-girault-bulletproofs-and-plonk/)
+- [TrailOfBit Blog](https://blog.trailofbits.com/2022/04/13/part-1-coordinated-disclosure-of-vulnerabilities-affecting-girault-bulletproofs-and-plonk/)
 
 ##### Bad Polynomial Implementation
 
-    [Zendoo: Missing Polynomial Normalization after Arithmetic Operations](https://research.nccgroup.com/2021/11/30/public-report-zendoo-proof-verifier-cryptography-review/)
+- [Zendoo: Missing Polynomial Normalization after Arithmetic Operations](https://research.nccgroup.com/2021/11/30/public-report-zendoo-proof-verifier-cryptography-review/)
     
 ##### Missing Curve Point check
 
-    Case:
-    - [0 Bug](https://arxiv.org/pdf/2104.12255.pdf)
-    - [00 Bug](https://github.com/cryptosubtlety/00/blob/main/00.pdf)
+- [0 Bug](https://arxiv.org/pdf/2104.12255.pdf)
+- [00 Bug](https://github.com/cryptosubtlety/00/blob/main/00.pdf)
 
 ##### Unsecure Elliptic Curve
 
@@ -189,6 +188,7 @@ Strategy: Application to Poseidon and Poseidon2](https://eprint.iacr.org/2023/53
 ### Audit Reports
 
 - [Security Reviews](https://github.com/nullity00/zk-security-reviews) of ZK Protocols by [nullity](https://github.com/nullity00). Consists of Security Reports of 20+ ZK Protocols.
+- [code4rena Report](https://code4rena.com/reports)
 
 ### Blogs
 
@@ -217,10 +217,11 @@ writeups
 - [2023 Ingonyama CTF Official WP](https://github.com/ingonyama-zk/zkctf-2023-writeups)
 - 
 
-### Vedios
+### Videos
 
 ### Miscellaneous
 
 - ["Security of ZKP projects: same but different"](https://www.aumasson.jp/data/talks/zksec_zk7.pdf) by JP Aumasson @ [Taurus](https://www.taurushq.com/). Great slides outlining the different types of zk security vulnerabilities along with examples.
 - [0xPARC zk-bug-tracker](https://github.com/0xPARC/zk-bug-tracker) by [0xPARC](https://0xparc.org/) and [PSE](https://pse.dev/).
+- BUG Bounty platform: [code4rena](https://code4rena.com/), [Immunefi](https://immunefi.com/).
   

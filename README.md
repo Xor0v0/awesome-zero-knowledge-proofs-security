@@ -6,22 +6,21 @@
   - [Table of Content](#table-of-content)
   - [Introduction](#introduction)
   - [Vulnerability Classification](#vulnerability-classification)
-    - [Front End](#front-end)
-      - [circuits](#circuits)
-        - [Domain Specific Bugs](#domain-specific-bugs)
-          - [Circom](#circom)
-          - [Rust(Halo2)](#rusthalo2)
-          - [Cairo](#cairo)
-          - [Noir](#noir)
-          - [Leo](#leo)
-          - [Zokrates](#zokrates)
-        - [Common Bugs](#common-bugs)
-          - [Architetural Design Flaw](#architetural-design-flaw)
-          - [Business Logic Error](#business-logic-error)
-      - [zkVM programs](#zkvm-programs)
-        - [Cairo Starknet Contract](#cairo-starknet-contract)
-    - [Back End](#back-end)
-      - [Unstandardized Cryptographic Implementation](#unstandardized-cryptographic-implementation)
+    - [Front end: Circuits](#front-end-circuits)
+      - [Domain Specific Bugs](#domain-specific-bugs)
+        - [Circom](#circom)
+        - [Rust(Halo2)](#rusthalo2)
+        - [Cairo](#cairo)
+        - [Noir](#noir)
+        - [Leo](#leo)
+        - [Zokrates](#zokrates)
+      - [Common Bugs](#common-bugs)
+        - [Architetural Design Flaw](#architetural-design-flaw)
+        - [Business Logic Error](#business-logic-error)
+    - [Front end: zkVM programs](#front-end-zkvm-programs)
+      - [Cairo Starknet Contract](#cairo-starknet-contract)
+    - [Back End: Proving system](#back-end-proving-system)
+    - [Unstandardized Cryptographic Implementation](#unstandardized-cryptographic-implementation)
         - [Frozen Heart](#frozen-heart)
         - [Bad Polynomial Implementation](#bad-polynomial-implementation)
         - [Missing Curve Point check](#missing-curve-point-check)
@@ -51,31 +50,23 @@ To be more precise, circuits or zkVM programs implementation comes with its own 
 
 ## Vulnerability Classification
 
-### Front End
-
 The biggest difference between circuits and zkVM programs is that circuit languages are usually domain specific (DSL), and their mental models (writing constraints) are very different from traditional programming, while the programming approach of zkVM programs is more similar to traditional programming (but not exactly the same because the underlying VM is implemented as circuits, so only some circuit friendly operations can be implemented, such as hash functions that only support [pedersen](https://iden3-docs.readthedocs.io/en/latest/iden3_repos/research/publications/zkproof-standards-workshop-2/pedersen-hash/pedersen.html#pdf-link) and [poseidon](https://eprint.iacr.org/2019/458.pdf)), so the learning threshold and cost are lower.
 
-The following will introduce domain specific bugs and common bugs separately.
-
-#### circuits
+### Front end: Circuits
 
 There are currently many circuit DSLs, such as Circom, Cairo, Noir, Leo, Zokrate, Lurk, etc. Ideally, provable programs written in these languages should be well constrained. The actual situation is that implementation may be **over-constrained** or **under-constrained**, even if the protocol design and implementation are improper, it may lead to **privacy leakage**. The above respectively undermines the completeness, soundness and zero knowledge property of zkp. 
 
-##### Domain Specific Bugs
+#### Domain Specific Bugs
 
-###### Circom
+##### Circom
 
 - under-constrained
 
     - Nondeterministic Circuits
 
-        Case:
-
         - [Circom-Pairing: Missing Output Check Constraint](https://medium.com/veridise/circom-pairing-a-million-dollar-zk-bug-caught-early-c5624b278f25)
 
     - Mismatching Bit Lengths
-
-        Case:
 
         - [Dark Forest Missing bit Length Check](https://blog.zkga.me/df-init-circuit#:~:text=Bonus%201%3A%20Range%20Proofs)
         - [BigInt: Missing Bit Length Check](https://github.com/0xPARC/circom-ecdsa/pull/10)
@@ -83,42 +74,41 @@ There are currently many circuit DSLs, such as Circom, Cairo, Noir, Leo, Zokrate
     - Unused Public Inputs Optimized Out
 
 - over-constrained
-    
-    case 1: 
+  
 
 - privacy leakage
 
     - Trusted Setup Leak
-  
+    
         case 1: 
 
     - Bad Protocol Design/Implementation
 
         [Dusk-Network Plonk](https://github.com/dusk-network/plonk/issues/650)
 
-###### Rust(Halo2)
+##### Rust(Halo2)
 
 - WIP
 
-###### Cairo
+##### Cairo
 
 - WIP
 
-###### Noir
+##### Noir
 
 - WIP
 
-###### Leo
+##### Leo
 
 - WIP
 
-###### Zokrates
+##### Zokrates
 
 - WIP
 
-##### Common Bugs
+#### Common Bugs
 
-###### Architetural Design Flaw
+##### Architetural Design Flaw
 
 - Front Running
 
@@ -131,7 +121,7 @@ There are currently many circuit DSLs, such as Circom, Cairo, Noir, Leo, Zokrate
 
 - Privacy Leakage
 
-###### Business Logic Error
+##### Business Logic Error
 
 - Access Control
 
@@ -142,32 +132,32 @@ There are currently many circuit DSLs, such as Circom, Cairo, Noir, Leo, Zokrate
 Arithmetic Over/Under Flows
 
 
-#### zkVM programs
+### Front end: zkVM programs
 
 The emergence of zkVM (including zkEVM) has greatly enriched the application of zk technology, and people can prove more diverse programs, such as smart contracts (starknet based on [cairo VM](https://github.com/lambdaclass/cairo-vm), blockchain based on various EVMs such as [Polygon](https://docs.polygon.technology/zkEVM/), [Scroll](https://scroll.io/blog/zkevm), [zksync](https://github.com/matter-labs/zksync-era), etc.) and general programs ([RISC Zero](https://dev.risczero.com/api/zkvm/), [SP1](https://github.com/succinctlabs/sp1), etc.) . Meanwhile, it also aligns with many traditional programming fields, such as reverse engineering (A ctf [puzzle](https://github.com/weikengchen/zkctf-r0-season1) by [weikeng chen](https://github.com/weikengchen/))。
 
 The security issues in these fields are still blank and worth further exploring in the future.
 
-##### Cairo Starknet Contract
+#### Cairo Starknet Contract
 
 **Security consideration**
 
 **Tools**: [Cairo Fuzzer](https://github.com/FuzzingLabs/cairo-fuzzer), [Caracal](https://github.com/crytic/caracal), [Thoth](https://github.com/FuzzingLabs/thoth).
 
-### Back End
+### Back End: Proving system
 
 The backend is a proving system that leans towards the cryptographic part, so this part involves more secure applications of cryptographic primitives. One must note: even secure primitives may introduce vulnerabilities if used incorrectly in the larger protocol or configured in an insecure manner.
 
-#### Unstandardized Cryptographic Implementation
+### Unstandardized Cryptographic Implementation
 
 ##### Frozen Heart
-  
+
 - [TrailOfBit Blog](https://blog.trailofbits.com/2022/04/13/part-1-coordinated-disclosure-of-vulnerabilities-affecting-girault-bulletproofs-and-plonk/)
 
 ##### Bad Polynomial Implementation
 
 - [Zendoo: Missing Polynomial Normalization after Arithmetic Operations](https://research.nccgroup.com/2021/11/30/public-report-zendoo-proof-verifier-cryptography-review/)
-    
+  
 ##### Missing Curve Point check
 
 - [0 Bug](https://arxiv.org/pdf/2104.12255.pdf)
@@ -200,6 +190,7 @@ Strategy: Application to Poseidon and Poseidon2](https://eprint.iacr.org/2023/53
 - [zkSecurity Blog](https://www.zksecurity.xyz/blog/)
 - [Ingonyama Blog](https://www.ingonyama.com/blog)
 - [Open Zeppelin Blog](https://blog.openzeppelin.com/)
+- [sec3 Blog](https://www.sec3.dev/blog)
 - [samczsun' Blog](https://samczsun.com/)
 
 ### zkHACK/CTF/Puzzles
@@ -224,4 +215,3 @@ writeups
 - ["Security of ZKP projects: same but different"](https://www.aumasson.jp/data/talks/zksec_zk7.pdf) by JP Aumasson @ [Taurus](https://www.taurushq.com/). Great slides outlining the different types of zk security vulnerabilities along with examples.
 - [0xPARC zk-bug-tracker](https://github.com/0xPARC/zk-bug-tracker) by [0xPARC](https://0xparc.org/) and [PSE](https://pse.dev/).
 - BUG Bounty platform: [code4rena](https://code4rena.com/), [Immunefi](https://immunefi.com/).
-  

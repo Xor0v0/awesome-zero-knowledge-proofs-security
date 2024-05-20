@@ -6,7 +6,7 @@
   - [Table of Content](#table-of-content)
   - [Introduction](#introduction)
   - [Vulnerability Classification](#vulnerability-classification)
-    - [Front end: Circuits](#front-end-circuits)
+    - [FrontEnd: Circuits](#frontend-circuits)
       - [Domain Specific Bugs](#domain-specific-bugs)
         - [Circom](#circom)
         - [Rust(Halo2)](#rusthalo2)
@@ -17,8 +17,8 @@
       - [Common Bugs](#common-bugs)
         - [Architetural Design Flaw](#architetural-design-flaw)
         - [Business Logic Error](#business-logic-error)
-    - [Front end: zkVM programs](#front-end-zkvm-programs)
-      - [Cairo Starknet Contract](#cairo-starknet-contract)
+    - [FrontEnd: zkVM programs](#frontend-zkvm-programs)
+      - [Smart Contract](#smart-contract)
     - [Back End: Proving system](#back-end-proving-system)
     - [Unstandardized Cryptographic Implementation](#unstandardized-cryptographic-implementation)
         - [Frozen Heart](#frozen-heart)
@@ -50,11 +50,15 @@ To be more precise, circuits or zkVM programs implementation comes with its own 
 
 ## Vulnerability Classification
 
-The biggest difference between circuits and zkVM programs is that circuit languages are usually domain specific (DSL), and their mental models (writing constraints) are very different from traditional programming, while the programming approach of zkVM programs is more similar to traditional programming (but not exactly the same because the underlying VM is implemented as circuits, so only some circuit friendly operations can be implemented, such as hash functions that only support [pedersen](https://iden3-docs.readthedocs.io/en/latest/iden3_repos/research/publications/zkproof-standards-workshop-2/pedersen-hash/pedersen.html#pdf-link) and [poseidon](https://eprint.iacr.org/2019/458.pdf)), so the learning threshold and cost are lower.
+The biggest difference between circuits and zkVM programs is that circuit languages are usually domain specific (DSL), and their mental models (writing constraints) are very different from traditional programming, while the programming approach of zkVM programs is more similar to traditional programming (but not exactly the same because the underlying VM is implemented as circuits, so only some circuit friendly operations can be implemented, such as hash functions [pedersen](https://iden3-docs.readthedocs.io/en/latest/iden3_repos/research/publications/zkproof-standards-workshop-2/pedersen-hash/pedersen.html#pdf-link), [poseidon](https://eprint.iacr.org/2019/458.pdf), and MiMC[https://eprint.iacr.org/2016/492.pdf]), so the learning threshold and cost are lower.
 
-### Front end: Circuits
+### FrontEnd: Circuits
 
-There are currently many circuit DSLs, such as Circom, Cairo, Noir, Leo, Zokrate, Lurk, etc. Ideally, provable programs written in these languages should be well constrained. The actual situation is that implementation may be **over-constrained** or **under-constrained**, even if the protocol design and implementation are improper, it may lead to **privacy leakage**. The above respectively undermines the completeness, soundness and zero knowledge property of zkp. 
+Circuits act a very important role as namely **arithmetization** in a ZKP scheme.
+
+There are currently many circuit DSLs, such as [Circom](https://github.com/iden3/circom), [Cairo](https://github.com/starkware-libs/cairo), [Noir](https://github.com/noir-lang/noir), [Leo](https://github.com/AleoHQ/leo), [Zokrate](https://github.com/Zokrates/ZoKrates), [Lurk](https://github.com/lurk-lab/lurk-rs), [Chiquito](https://github.com/privacy-scaling-explorations/chiquito/) etc. Ideally, provable programs written in these languages should be **well constrained**. 
+
+The actual situation is that implementation may be **over-constrained** or **under-constrained**, even if the protocol design and implementation are improper, it may lead to **privacy leakage**. The above respectively undermines the completeness, soundness and zero knowledge property of ZKP. 
 
 #### Domain Specific Bugs
 
@@ -65,6 +69,7 @@ There are currently many circuit DSLs, such as Circom, Cairo, Noir, Leo, Zokrate
     - Nondeterministic Circuits
 
         - [Circom-Pairing: Missing Output Check Constraint](https://medium.com/veridise/circom-pairing-a-million-dollar-zk-bug-caught-early-c5624b278f25)
+      - 
 
     - Mismatching Bit Lengths
 
@@ -79,32 +84,34 @@ There are currently many circuit DSLs, such as Circom, Cairo, Noir, Leo, Zokrate
 - privacy leakage
 
     - Trusted Setup Leak
-    
-        case 1: 
+      - [ZCash counterfeiting vulnerability](https://electriccoin.co/blog/zcash-counterfeiting-vulnerability-successfully-remediated/)
+      - [Vitalik: How do trusted setups work?](https://vitalik.eth.limo/general/2022/03/14/trustedsetup.html)
+      - [setup-ceremony](https://zkproof.org/2021/06/30/setup-ceremonies/)
 
     - Bad Protocol Design/Implementation
 
-        [Dusk-Network Plonk](https://github.com/dusk-network/plonk/issues/650)
+        - [Dusk-Network Plonk](https://github.com/dusk-network/plonk/issues/650)
 
 ##### Rust(Halo2)
 
-- WIP
+- [Consensys: Endeavors into the zero-knowledge Halo2 proving system](https://consensys.io/diligence/blog/2023/07/endeavors-into-the-zero-knowledge-halo2-proving-system/#:~:text=How%20can%20bugs%20happen%20in%20Halo2%20circuits%3F)
+- [Automated Analysis of Halo2 Circuits](https://ceur-ws.org/Vol-3429/paper3.pdf)
 
 ##### Cairo
 
-- WIP
+- Coming soon.
 
 ##### Noir
 
-- WIP
+- [DoS: Recusion / AVM trace is unlimited](https://github.com/noir-lang/noir/issues/5026)
 
 ##### Leo
 
-- WIP
+- Blank right now!!
 
 ##### Zokrates
 
-- WIP
+- [ABDK for Mystiko audit report](https://github.com/abdk-consulting/audits/blob/main/mystiko/ABDK_Mystiko_Solidity_ZoKrates_v_2_0.pdf)
 
 #### Common Bugs
 
@@ -112,8 +119,7 @@ There are currently many circuit DSLs, such as Circom, Cairo, Noir, Leo, Zokrate
 
 - Front Running
 
-    Case:
-    - [RLN Front Running Problem](https://github.com/nullity00/zk-security-reviews/blob/main/RLN/VAR-RLN.pdf)
+    - [RLN Front Running Issue](https://github.com/nullity00/zk-security-reviews/blob/main/RLN/VAR-RLN.pdf)
 
 - Replay
 
@@ -132,15 +138,28 @@ There are currently many circuit DSLs, such as Circom, Cairo, Noir, Leo, Zokrate
 Arithmetic Over/Under Flows
 
 
-### Front end: zkVM programs
+### FrontEnd: zkVM programs
 
-The emergence of zkVM (including zkEVM) has greatly enriched the application of zk technology, and people can prove more diverse programs, such as smart contracts (starknet based on [cairo VM](https://github.com/lambdaclass/cairo-vm), blockchain based on various EVMs such as [Polygon](https://docs.polygon.technology/zkEVM/), [Scroll](https://scroll.io/blog/zkevm), [zksync](https://github.com/matter-labs/zksync-era), etc.) and general programs ([RISC Zero](https://dev.risczero.com/api/zkvm/), [SP1](https://github.com/succinctlabs/sp1), etc.) . Meanwhile, it also aligns with many traditional programming fields, such as reverse engineering (A ctf [puzzle](https://github.com/weikengchen/zkctf-r0-season1) by [weikeng chen](https://github.com/weikengchen/))。
+The emergence of zkVM (including zkEVM) has greatly enriched the application of zk technology, and people can prove more diverse programs, such as smart contracts (starknet based on [cairo VM](https://github.com/lambdaclass/cairo-vm), blockchain based on various EVMs such as [Polygon](https://docs.polygon.technology/zkEVM/), [Scroll](https://scroll.io/blog/zkevm), [zksync](https://github.com/matter-labs/zksync-era), etc.) and general programs ([RISC Zero](https://dev.risczero.com/api/zkvm/), [SP1](https://github.com/succinctlabs/sp1), etc.) . 
+
+Meanwhile, it also aligns with many traditional programming fields, such as reverse engineering (A CTF [puzzle](https://github.com/weikengchen/zkctf-r0-season1) by [weikeng chen](https://github.com/weikengchen/))。
 
 The security issues in these fields are still blank and worth further exploring in the future.
 
-#### Cairo Starknet Contract
+#### Smart Contract
 
-**Security consideration**
+- Solidity
+
+  There are some good repo for its security:
+  - [Solidity Security Blog](https://github.com/sigp/solidity-security-blog)
+  - [not-so-smart-contract](https://github.com/crytic/not-so-smart-contracts)
+  - [List of Security Vunerabilities](https://github.com/runtimeverification/verified-smart-contracts/wiki/List-of-Security-Vulnerabilities)
+
+- Cairo
+
+- 
+
+
 
 **Tools**: [Cairo Fuzzer](https://github.com/FuzzingLabs/cairo-fuzzer), [Caracal](https://github.com/crytic/caracal), [Thoth](https://github.com/FuzzingLabs/thoth).
 

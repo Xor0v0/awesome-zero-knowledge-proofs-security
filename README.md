@@ -1,6 +1,8 @@
 # Awesome zero knowledge proofs security
 [![Awesome](https://camo.githubusercontent.com/715ee701c8a9a0dbe30aac69ed79f5712a6542f5a482a3940084ce76d494a779/68747470733a2f2f617765736f6d652e72652f62616467652e737667)](https://awesome.re/) A curated list of awesome things related to learning zero knowledge proofs security
 
+<div align=center><img src="assets/ZK Security.jpg" style="zoom:50%;"></div>
+
 ## Table of Content
 - [Awesome zero knowledge proofs security](#awesome-zero-knowledge-proofs-security)
   - [Table of Content](#table-of-content)
@@ -20,12 +22,15 @@
     - [FrontEnd: zkVM programs](#frontend-zkvm-programs)
       - [Smart Contract](#smart-contract)
     - [Back End: Proving system](#back-end-proving-system)
-    - [Unstandardized Cryptographic Implementation](#unstandardized-cryptographic-implementation)
+      - [Unstandardized Cryptographic Implementation](#unstandardized-cryptographic-implementation)
         - [Frozen Heart](#frozen-heart)
         - [Bad Polynomial Implementation](#bad-polynomial-implementation)
         - [Missing Curve Point check](#missing-curve-point-check)
         - [Unsecure Elliptic Curve](#unsecure-elliptic-curve)
         - [Unseure Hash Function](#unseure-hash-function)
+  - [Security Consideration](#security-consideration)
+    - [circom](#circom-1)
+    - [cairo](#cairo-1)
   - [Learning Resources](#learning-resources)
     - [Papers](#papers)
     - [Audit Reports](#audit-reports)
@@ -99,7 +104,7 @@ The actual situation is that implementation may be **over-constrained** or **und
 
 ##### Cairo
 
-- Coming soon.
+- Comming soon
 
 ##### Noir
 
@@ -150,15 +155,19 @@ The security issues in these fields are still blank and worth further exploring 
 
 - Solidity
 
-  There are some good repo for its security:
+  Here are some good repo for its security:
   - [Solidity Security Blog](https://github.com/sigp/solidity-security-blog)
   - [not-so-smart-contract](https://github.com/crytic/not-so-smart-contracts)
   - [List of Security Vunerabilities](https://github.com/runtimeverification/verified-smart-contracts/wiki/List-of-Security-Vulnerabilities)
 
 - Cairo
 
-- 
+  One thing to note: when using components from the third party repo, pay attention to some default configuration that it makes. Open Zeppelin ERC20 components, for example, **the default token decimal is fixed value: 18**. Developers need to consider if this configurations are applicable in their project scenarios.
 
+  Here are some existing audit reports for reference:
+  - [Opus-2024_01-c4](https://code4rena.com/reports/2024-01-opus#h-01-neglect-of-exceptional-redistribution-amounts-in-withdraw_helper-function)
+  - [lindy-labs-aura-2023_11-tob](https://solodit.xyz/issues/healthy-loans-can-be-liquidated-trailofbits-none-lindy-labs-aura-pdf)
+  - [Argent-Account-2023_6-consensys](https://consensys.io/diligence/audits/2023/06/argent-account-multisig-for-starknet/)
 
 
 **Tools**: [Cairo Fuzzer](https://github.com/FuzzingLabs/cairo-fuzzer), [Caracal](https://github.com/crytic/caracal), [Thoth](https://github.com/FuzzingLabs/thoth).
@@ -167,7 +176,7 @@ The security issues in these fields are still blank and worth further exploring 
 
 The backend is a proving system that leans towards the cryptographic part, so this part involves more secure applications of cryptographic primitives. One must note: even secure primitives may introduce vulnerabilities if used incorrectly in the larger protocol or configured in an insecure manner.
 
-### Unstandardized Cryptographic Implementation
+#### Unstandardized Cryptographic Implementation
 
 ##### Frozen Heart
 
@@ -187,6 +196,29 @@ The backend is a proving system that leans towards the cryptographic part, so th
 
 ##### Unseure Hash Function
 
+- [Hash function is not second image resistant in micro-starknet](https://github.com/paulmillr/scure-starknet/blob/main/audit/2023-09-kudelski-audit-starknet.pdf)
+
+## Security Consideration
+
+### circom
+
+- [blockdev's slides](https://hackmd.io/@blockdev/Bk_-jRkXa#/)
+
+### cairo
+
+1. No payable functions
+2. Name hashed storage slots
+3. Upgradeability built-in
+4. Separated internal/external functions
+5. Cheap execution means readable algorithms
+6. Immutable variables by default
+7. Safe type conversions
+8. Option and Result traits
+
+**Reference**
+- [starknet book](https://book.starknet.io/ch02-14-security-considerations.html)
+- [cairo-the-starknet-way-to-writing-safe-code by Nethermind Security](https://medium.com/nethermind-eth/cairo-the-starknet-way-to-writing-safe-code-8169486c7132)
+
 ## Learning Resources
 
 ### Papers
@@ -196,8 +228,10 @@ Strategy: Application to Poseidon and Poseidon2](https://eprint.iacr.org/2023/53
 
 ### Audit Reports
 
-- [Security Reviews](https://github.com/nullity00/zk-security-reviews) of ZK Protocols by [nullity](https://github.com/nullity00). Consists of Security Reports of 20+ ZK Protocols.
+- [Security Reviews](https://github.com/nullity00/zk-security-reviews) of ZK Protocols by [nullity](https://github.com/nullity00). Consists of Security Reports of 50+ ZK Protocols.
 - [code4rena Report](https://code4rena.com/reports)
+
+You can directly visit the [solodit](https://solodit.xyz/) website to get some off-the-shelf audit reports.
 
 ### Blogs
 
@@ -220,6 +254,9 @@ Strategy: Application to Poseidon and Poseidon2](https://eprint.iacr.org/2023/53
 - [Open Zeppelin CTF](https://ctf.openzeppelin.com/)
 - [Ingonyama CTF](https://ctf.ingonyama.com/)
 - [RareSkill ZK Puzzles](https://github.com/RareSkills/zero-knowledge-puzzles/tree/main)
+- [cairo-damn-vulnerable](https://github.com/credence0x/cairo-damn-vulnerable-defi)
+- [starknet-security-challenges.app](https://starknet-security-challenges.app/)
+- [StarknetCC-CTF](https://github.com/pscott/StarknetCC-CTF)
 
 writeups
 
@@ -234,3 +271,4 @@ writeups
 - ["Security of ZKP projects: same but different"](https://www.aumasson.jp/data/talks/zksec_zk7.pdf) by JP Aumasson @ [Taurus](https://www.taurushq.com/). Great slides outlining the different types of zk security vulnerabilities along with examples.
 - [0xPARC zk-bug-tracker](https://github.com/0xPARC/zk-bug-tracker) by [0xPARC](https://0xparc.org/) and [PSE](https://pse.dev/).
 - BUG Bounty platform: [code4rena](https://code4rena.com/), [Immunefi](https://immunefi.com/).
+- [l2-security-framework by QuantStamp](https://github.com/quantstamp/l2-security-framework)

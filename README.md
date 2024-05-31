@@ -10,15 +10,15 @@
   - [Vulnerability Classification](#vulnerability-classification)
     - [FrontEnd: Circuits](#frontend-circuits)
       - [Circuit Domain Specific Bugs](#circuit-domain-specific-bugs)
-        - [Circom](#circom)
-        - [Rust(Halo2)](#rusthalo2)
-        - [Cairo](#cairo)
-        - [Noir](#noir)
-        - [Leo](#leo)
-        - [Zokrates](#zokrates)
+        - [1. Circom](#1-circom)
+        - [2. Rust(Halo2)](#2-rusthalo2)
+        - [3. Cairo](#3-cairo)
+        - [4. Noir](#4-noir)
+        - [5. Leo](#5-leo)
+        - [6. Zokrates](#6-zokrates)
       - [Common Bugs](#common-bugs)
-        - [Architetural Design Flaw](#architetural-design-flaw)
-        - [Business Logic Error](#business-logic-error)
+        - [1. Architetural Design Flaw](#1-architetural-design-flaw)
+        - [2. Business Logic Error](#2-business-logic-error)
     - [FrontEnd: zkVM programs](#frontend-zkvm-programs)
       - [Smart Contract](#smart-contract)
     - [Back End: Proving system](#back-end-proving-system)
@@ -30,8 +30,8 @@
         - [Unsecure Elliptic Curve](#unsecure-elliptic-curve)
         - [Unseure Hash Function](#unseure-hash-function)
   - [Security Consideration](#security-consideration)
-    - [circom](#circom-1)
-    - [cairo](#cairo-1)
+    - [circom](#circom)
+    - [cairo](#cairo)
   - [Learning Resources](#learning-resources)
     - [Papers](#papers)
     - [Audit Reports](#audit-reports)
@@ -68,7 +68,7 @@ The actual situation is that implementation may be **over-constrained** or **und
 
 #### Circuit Domain Specific Bugs
 
-##### Circom
+##### 1. Circom
 
 **Soundness Error**
 
@@ -92,18 +92,18 @@ The actual situation is that implementation may be **over-constrained** or **und
   
 **Zero Knowledge Error**
 
-    - Trusted Setup Leak
-      - [ZCash counterfeiting vulnerability](https://electriccoin.co/blog/zcash-counterfeiting-vulnerability-successfully-remediated/)
-      - [Vitalik: How do trusted setups work?](https://vitalik.eth.limo/general/2022/03/14/trustedsetup.html)
-      - [setup-ceremony](https://zkproof.org/2021/06/30/setup-ceremonies/)
+  - Trusted Setup Leak
+    - [ZCash counterfeiting vulnerability](https://electriccoin.co/blog/zcash-counterfeiting-vulnerability-successfully-remediated/)
+    - [Vitalik: How do trusted setups work?](https://vitalik.eth.limo/general/2022/03/14/trustedsetup.html)
+    - [setup-ceremony](https://zkproof.org/2021/06/30/setup-ceremonies/)
 
-    - Bad Protocol Design/Implementation
+  - Bad Protocol Design/Implementation
 
-        - [Dusk-Network Plonk](https://github.com/dusk-network/plonk/issues/650)
+      - [Dusk-Network Plonk](https://github.com/dusk-network/plonk/issues/650)
 
-##### Rust(Halo2)
+##### 2. Rust(Halo2)
 
-1. Soundness Error
+**Soundness Error**
 
 - under-constrained
 
@@ -119,37 +119,37 @@ The actual situation is that implementation may be **over-constrained** or **und
 
     - [Scroll wave1: N_BYTES parameters are not checked to prevent overflow](https://github.com/nullity00/zk-security-reviews/blob/main/Scroll/2023-04-scroll-zkEVM-wave1-securityreview.pdf)
 
-2. Completeness Error
+**Completeness Error**
 
     - over-constrained
      
-3. Zero Knowledge Error
+**Zero Knowledge Error**
 
 
-**Reference**
+Reference
 
 - [Consensys: Endeavors into the zero-knowledge Halo2 proving system](https://consensys.io/diligence/blog/2023/07/endeavors-into-the-zero-knowledge-halo2-proving-system/#:~:text=How%20can%20bugs%20happen%20in%20Halo2%20circuits%3F)
 - [Automated Analysis of Halo2 Circuits](https://ceur-ws.org/Vol-3429/paper3.pdf)
 
-##### Cairo
+##### 3. Cairo
 
 - Comming soon
 
-##### Noir
+##### 4. Noir
 
 - [DoS: Recusion / AVM trace is unlimited](https://github.com/noir-lang/noir/issues/5026)
 
-##### Leo
+##### 5. Leo
 
 - Blank right now!!
 
-##### Zokrates
+##### 6. Zokrates
 
 - [ABDK for Mystiko audit report](https://github.com/abdk-consulting/audits/blob/main/mystiko/ABDK_Mystiko_Solidity_ZoKrates_v_2_0.pdf)
 
 #### Common Bugs
 
-##### Architetural Design Flaw
+##### 1. Architetural Design Flaw
 
 - Front Running
 
@@ -161,7 +161,7 @@ The actual situation is that implementation may be **over-constrained** or **und
 
 - Privacy Leakage
 
-##### Business Logic Error
+##### 2. Business Logic Error
 
 - Access Control
 

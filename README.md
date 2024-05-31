@@ -9,7 +9,7 @@
   - [Introduction](#introduction)
   - [Vulnerability Classification](#vulnerability-classification)
     - [FrontEnd: Circuits](#frontend-circuits)
-      - [Domain Specific Bugs](#domain-specific-bugs)
+      - [Circuit Domain Specific Bugs](#circuit-domain-specific-bugs)
         - [Circom](#circom)
         - [Rust(Halo2)](#rusthalo2)
         - [Cairo](#cairo)
@@ -24,6 +24,7 @@
     - [Back End: Proving system](#back-end-proving-system)
       - [Unstandardized Cryptographic Implementation](#unstandardized-cryptographic-implementation)
         - [Frozen Heart](#frozen-heart)
+      - [Lack of Domain Seperation](#lack-of-domain-seperation)
         - [Bad Polynomial Implementation](#bad-polynomial-implementation)
         - [Missing Curve Point check](#missing-curve-point-check)
         - [Unsecure Elliptic Curve](#unsecure-elliptic-curve)
@@ -65,28 +66,31 @@ There are currently many circuit DSLs, such as [Circom](https://github.com/iden3
 
 The actual situation is that implementation may be **over-constrained** or **under-constrained**, even if the protocol design and implementation are improper, it may lead to **privacy leakage**. The above respectively undermines the completeness, soundness and zero knowledge property of ZKP. 
 
-#### Domain Specific Bugs
+#### Circuit Domain Specific Bugs
 
 ##### Circom
 
+**Soundness Error**
+
 - under-constrained
 
-    - Nondeterministic Circuits
+  - Nondeterministic Circuits
 
-        - [Circom-Pairing: Missing Output Check Constraint](https://medium.com/veridise/circom-pairing-a-million-dollar-zk-bug-caught-early-c5624b278f25)
-      - 
+    - [Circom-Pairing: Missing Output Check Constraint](https://medium.com/veridise/circom-pairing-a-million-dollar-zk-bug-caught-early-c5624b278f25)
 
-    - Mismatching Bit Lengths
 
-        - [Dark Forest Missing bit Length Check](https://blog.zkga.me/df-init-circuit#:~:text=Bonus%201%3A%20Range%20Proofs)
-        - [BigInt: Missing Bit Length Check](https://github.com/0xPARC/circom-ecdsa/pull/10)
+  - Mismatching Bit Lengths 
 
-    - Unused Public Inputs Optimized Out
+      - [Dark Forest Missing bit Length Check](https://blog.zkga.me/df-init-circuit#:~:text=Bonus%201%3A%20Range%20Proofs)
+      - [BigInt: Missing Bit Length Check](https://github.com/0xPARC/circom-ecdsa/pull/10)
+
+  - Unused Public Inputs Optimized Out
+
+**Completeness Error**
 
 - over-constrained
   
-
-- privacy leakage
+**Zero Knowledge Error**
 
     - Trusted Setup Leak
       - [ZCash counterfeiting vulnerability](https://electriccoin.co/blog/zcash-counterfeiting-vulnerability-successfully-remediated/)
@@ -98,6 +102,31 @@ The actual situation is that implementation may be **over-constrained** or **und
         - [Dusk-Network Plonk](https://github.com/dusk-network/plonk/issues/650)
 
 ##### Rust(Halo2)
+
+1. Soundness Error
+
+- under-constrained
+
+  - Nondeterministic Gadget
+
+    - [Scroll wave1: ModGadget is underconstrained and allows incorrect MULMOD operations to be proven](https://github.com/nullity00/zk-security-reviews/blob/main/Scroll/2023-04-scroll-zkEVM-wave1-securityreview.pdf)
+
+  - Arithmetic operation issue
+
+    - [Scroll wave1: Zero modulus will cause a panic](https://github.com/nullity00/zk-security-reviews/blob/main/Scroll/2023-04-scroll-zkEVM-wave1-securityreview.pdf)
+
+  - Range Check
+
+    - [Scroll wave1: N_BYTES parameters are not checked to prevent overflow](https://github.com/nullity00/zk-security-reviews/blob/main/Scroll/2023-04-scroll-zkEVM-wave1-securityreview.pdf)
+
+2. Completeness Error
+
+    - over-constrained
+     
+3. Zero Knowledge Error
+
+
+**Reference**
 
 - [Consensys: Endeavors into the zero-knowledge Halo2 proving system](https://consensys.io/diligence/blog/2023/07/endeavors-into-the-zero-knowledge-halo2-proving-system/#:~:text=How%20can%20bugs%20happen%20in%20Halo2%20circuits%3F)
 - [Automated Analysis of Halo2 Circuits](https://ceur-ws.org/Vol-3429/paper3.pdf)
@@ -182,6 +211,10 @@ The backend is a proving system that leans towards the cryptographic part, so th
 
 - [TrailOfBit Blog](https://blog.trailofbits.com/2022/04/13/part-1-coordinated-disclosure-of-vulnerabilities-affecting-girault-bulletproofs-and-plonk/)
 
+#### Lack of Domain Seperation
+
+- [Scroll zkTier: Lack of domain separation allows proof forgery](https://github.com/nullity00/zk-security-reviews/blob/main/Scroll/2023-07-scroll-zktrie-securityreview.pdf)
+
 ##### Bad Polynomial Implementation
 
 - [Zendoo: Missing Polynomial Normalization after Arithmetic Operations](https://research.nccgroup.com/2021/11/30/public-report-zendoo-proof-verifier-cryptography-review/)
@@ -196,7 +229,8 @@ The backend is a proving system that leans towards the cryptographic part, so th
 
 ##### Unseure Hash Function
 
-- [Hash function is not second image resistant in micro-starknet](https://github.com/paulmillr/scure-starknet/blob/main/audit/2023-09-kudelski-audit-starknet.pdf)
+- [Micro-starknet: Hash function is not second image resistant](https://github.com/paulmillr/scure-starknet/blob/main/audit/2023-09-kudelski-audit-starknet.pdf)
+- [Scroll zkTier: Unchecked usize to c_int casts allow hash collisions by length misinterpretation](https://github.com/nullity00/zk-security-reviews/blob/main/Scroll/2023-04-scroll-zkEVM-wave1-securityreview.pdf)
 
 ## Security Consideration
 

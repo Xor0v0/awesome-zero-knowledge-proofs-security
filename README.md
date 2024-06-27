@@ -6,43 +6,39 @@
 ## Table of Content
 - [Awesome zero knowledge proofs security](#awesome-zero-knowledge-proofs-security)
   - [Table of Content](#table-of-content)
-  - [Introduction](#introduction)
-  - [Vulnerability Classification](#vulnerability-classification)
+  - [1. Introduction](#1-introduction)
+  - [2. Vulnerability Classification](#2-vulnerability-classification)
     - [FrontEnd: Circuits](#frontend-circuits)
       - [Circuit Domain Specific Bugs](#circuit-domain-specific-bugs)
-        - [1. Circom](#1-circom)
-        - [2. Rust(Halo2)](#2-rusthalo2)
-        - [3. Cairo](#3-cairo)
-        - [4. Noir](#4-noir)
-        - [5. Leo](#5-leo)
-        - [6. Zokrates](#6-zokrates)
+        - [Soundness Error](#soundness-error)
+        - [Completeness Error](#completeness-error)
+        - [Zero Knowledge Error](#zero-knowledge-error)
       - [Common Bugs](#common-bugs)
-        - [1. Architetural Design Flaw](#1-architetural-design-flaw)
-        - [2. Business Logic Error](#2-business-logic-error)
     - [FrontEnd: zkVM programs](#frontend-zkvm-programs)
       - [Smart Contract](#smart-contract)
     - [Back End: Proving system](#back-end-proving-system)
       - [Unstandardized Cryptographic Implementation](#unstandardized-cryptographic-implementation)
         - [Frozen Heart](#frozen-heart)
-      - [Lack of Domain Seperation](#lack-of-domain-seperation)
+        - [Lack of Domain Seperation](#lack-of-domain-seperation)
         - [Bad Polynomial Implementation](#bad-polynomial-implementation)
         - [Missing Curve Point check](#missing-curve-point-check)
         - [Unsecure Elliptic Curve](#unsecure-elliptic-curve)
         - [Unseure Hash Function](#unseure-hash-function)
-  - [Security Consideration](#security-consideration)
+  - [3. Security Consideration](#3-security-consideration)
     - [circom](#circom)
     - [cairo](#cairo)
-  - [Learning Resources](#learning-resources)
+  - [4. Learning Resources](#4-learning-resources)
     - [Papers](#papers)
     - [Audit Reports](#audit-reports)
     - [Blogs](#blogs)
     - [zkHACK/CTF/Puzzles](#zkhackctfpuzzles)
+    - [Tools](#tools)
     - [Videos](#videos)
     - [Miscellaneous](#miscellaneous)
 
 
 
-## Introduction
+## 1. Introduction
 
 [Zero Knowledge Proof (ZKP)](https://github.com/matter-labs/awesome-zero-knowledge-proofs) technology is considered as a very promising infrastructure in blockchain field, even not limited to the Web3 world.
 
@@ -54,7 +50,7 @@ As with other programming field, the primary technical risk faced by both is cod
 
 To be more precise, circuits or zkVM programs implementation comes with its own set of vulnerability classification, disjoint from the low-level cryptography bugs that may be found in the proving system.
 
-## Vulnerability Classification
+## 2. Vulnerability Classification
 
 The biggest difference between circuits and zkVM programs is that circuit languages are usually domain specific (DSL), and their mental models (writing constraints) are very different from traditional programming, while the programming approach of zkVM programs is more similar to traditional programming (but not exactly the same because the underlying VM is implemented as circuits, so only some circuit friendly operations can be implemented, such as hash functions [pedersen](https://iden3-docs.readthedocs.io/en/latest/iden3_repos/research/publications/zkproof-standards-workshop-2/pedersen-hash/pedersen.html#pdf-link), [poseidon](https://eprint.iacr.org/2019/458.pdf), and MiMC[https://eprint.iacr.org/2016/492.pdf]), so the learning threshold and cost are lower.
 
@@ -68,88 +64,50 @@ The actual situation is that implementation may be **over-constrained** or **und
 
 #### Circuit Domain Specific Bugs
 
-##### 1. Circom
+##### Soundness Error
 
-**Soundness Error**
+under-constrained
 
-- under-constrained
+- Nondeterministic Circuits
 
-  - Nondeterministic Circuits
+  - (Circom) [Circom-Pairing: Missing Output Check Constraint](https://medium.com/veridise/circom-pairing-a-million-dollar-zk-bug-caught-early-c5624b278f25)
 
-    - [Circom-Pairing: Missing Output Check Constraint](https://medium.com/veridise/circom-pairing-a-million-dollar-zk-bug-caught-early-c5624b278f25)
+  - (Halo2-Rust) [Scroll wave1: ModGadget is underconstrained and allows incorrect MULMOD operations to be proven](https://github.com/nullity00/zk-security-reviews/blob/main/Scroll/2023-04-scroll-zkEVM-wave1-securityreview.pdf)
+
+  - (Noir) [DoS: Recusion / AVM trace is unlimited](https://github.com/noir-lang/noir/issues/5026)
 
 
-  - Mismatching Bit Lengths 
+- Range Check / Mismatching Bit Lengths
 
-      - [Dark Forest Missing bit Length Check](https://blog.zkga.me/df-init-circuit#:~:text=Bonus%201%3A%20Range%20Proofs)
-      - [BigInt: Missing Bit Length Check](https://github.com/0xPARC/circom-ecdsa/pull/10)
+    - (Circom) [Dark Forest Missing bit Length Check](https://blog.zkga.me/df-init-circuit#:~:text=Bonus%201%3A%20Range%20Proofs)
+    - (Circom) [BigInt: Missing Bit Length Check](https://github.com/0xPARC/circom-ecdsa/pull/10)
+    - (Halo2-Rust) [Scroll wave1: N_BYTES parameters are not checked to prevent overflow](https://github.com/nullity00/zk-security-reviews/blob/main/Scroll/2023-04-scroll-zkEVM-wave1-securityreview.pdf)
 
-  - Unused Public Inputs Optimized Out
+- Arithmetic operation issue
 
-**Completeness Error**
+  - (Halo2-Rust) [Scroll wave1: Zero modulus will cause a panic](https://github.com/nullity00/zk-security-reviews/blob/main/Scroll/2023-04-scroll-zkEVM-wave1-securityreview.pdf)
 
-- over-constrained
+##### Completeness Error
+
+over-constrained
   
-**Zero Knowledge Error**
+##### Zero Knowledge Error
 
-  - Trusted Setup Leak
-    - [ZCash counterfeiting vulnerability](https://electriccoin.co/blog/zcash-counterfeiting-vulnerability-successfully-remediated/)
-    - [Vitalik: How do trusted setups work?](https://vitalik.eth.limo/general/2022/03/14/trustedsetup.html)
-    - [setup-ceremony](https://zkproof.org/2021/06/30/setup-ceremonies/)
+- Trusted Setup Leak
+  - [ZCash counterfeiting vulnerability](https://electriccoin.co/blog/zcash-counterfeiting-vulnerability-successfully-remediated/)
+  - [Vitalik: How do trusted setups work?](https://vitalik.eth.limo/general/2022/03/14/trustedsetup.html)
+  - [setup-ceremony](https://zkproof.org/2021/06/30/setup-ceremonies/)
 
-  - Bad Protocol Design/Implementation
+- Bad Protocol Design/Implementation
 
-      - [Dusk-Network Plonk](https://github.com/dusk-network/plonk/issues/650)
-
-##### 2. Rust(Halo2)
-
-**Soundness Error**
-
-- under-constrained
-
-  - Nondeterministic Gadget
-
-    - [Scroll wave1: ModGadget is underconstrained and allows incorrect MULMOD operations to be proven](https://github.com/nullity00/zk-security-reviews/blob/main/Scroll/2023-04-scroll-zkEVM-wave1-securityreview.pdf)
-
-  - Arithmetic operation issue
-
-    - [Scroll wave1: Zero modulus will cause a panic](https://github.com/nullity00/zk-security-reviews/blob/main/Scroll/2023-04-scroll-zkEVM-wave1-securityreview.pdf)
-
-  - Range Check
-
-    - [Scroll wave1: N_BYTES parameters are not checked to prevent overflow](https://github.com/nullity00/zk-security-reviews/blob/main/Scroll/2023-04-scroll-zkEVM-wave1-securityreview.pdf)
-
-**Completeness Error**
-
-    - over-constrained
-     
-**Zero Knowledge Error**
-
+    - [Dusk-Network Plonk](https://github.com/dusk-network/plonk/issues/650)
 
 Reference
 
 - [Consensys: Endeavors into the zero-knowledge Halo2 proving system](https://consensys.io/diligence/blog/2023/07/endeavors-into-the-zero-knowledge-halo2-proving-system/#:~:text=How%20can%20bugs%20happen%20in%20Halo2%20circuits%3F)
 - [Automated Analysis of Halo2 Circuits](https://ceur-ws.org/Vol-3429/paper3.pdf)
 
-##### 3. Cairo
-
-- Comming soon
-
-##### 4. Noir
-
-- [DoS: Recusion / AVM trace is unlimited](https://github.com/noir-lang/noir/issues/5026)
-
-##### 5. Leo
-
-- Blank right now!!
-
-##### 6. Zokrates
-
-- [ABDK for Mystiko audit report](https://github.com/abdk-consulting/audits/blob/main/mystiko/ABDK_Mystiko_Solidity_ZoKrates_v_2_0.pdf)
-
 #### Common Bugs
-
-##### 1. Architetural Design Flaw
 
 - Front Running
 
@@ -158,18 +116,6 @@ Reference
 - Replay
 
 - Double Spending
-
-- Privacy Leakage
-
-##### 2. Business Logic Error
-
-- Access Control
-
-- Data Validation
-  
-- Denial of Service
-
-Arithmetic Over/Under Flows
 
 
 ### FrontEnd: zkVM programs
@@ -198,9 +144,6 @@ The security issues in these fields are still blank and worth further exploring 
   - [lindy-labs-aura-2023_11-tob](https://solodit.xyz/issues/healthy-loans-can-be-liquidated-trailofbits-none-lindy-labs-aura-pdf)
   - [Argent-Account-2023_6-consensys](https://consensys.io/diligence/audits/2023/06/argent-account-multisig-for-starknet/)
 
-
-**Tools**: [Cairo Fuzzer](https://github.com/FuzzingLabs/cairo-fuzzer), [Caracal](https://github.com/crytic/caracal), [Thoth](https://github.com/FuzzingLabs/thoth).
-
 ### Back End: Proving system
 
 The backend is a proving system that leans towards the cryptographic part, so this part involves more secure applications of cryptographic primitives. One must note: even secure primitives may introduce vulnerabilities if used incorrectly in the larger protocol or configured in an insecure manner.
@@ -211,7 +154,7 @@ The backend is a proving system that leans towards the cryptographic part, so th
 
 - [TrailOfBit Blog](https://blog.trailofbits.com/2022/04/13/part-1-coordinated-disclosure-of-vulnerabilities-affecting-girault-bulletproofs-and-plonk/)
 
-#### Lack of Domain Seperation
+##### Lack of Domain Seperation
 
 - [Scroll zkTier: Lack of domain separation allows proof forgery](https://github.com/nullity00/zk-security-reviews/blob/main/Scroll/2023-07-scroll-zktrie-securityreview.pdf)
 
@@ -232,7 +175,7 @@ The backend is a proving system that leans towards the cryptographic part, so th
 - [Micro-starknet: Hash function is not second image resistant](https://github.com/paulmillr/scure-starknet/blob/main/audit/2023-09-kudelski-audit-starknet.pdf)
 - [Scroll zkTier: Unchecked usize to c_int casts allow hash collisions by length misinterpretation](https://github.com/nullity00/zk-security-reviews/blob/main/Scroll/2023-04-scroll-zkEVM-wave1-securityreview.pdf)
 
-## Security Consideration
+## 3. Security Consideration
 
 ### circom
 
@@ -253,12 +196,13 @@ The backend is a proving system that leans towards the cryptographic part, so th
 - [starknet book](https://book.starknet.io/ch02-14-security-considerations.html)
 - [cairo-the-starknet-way-to-writing-safe-code by Nethermind Security](https://medium.com/nethermind-eth/cairo-the-starknet-way-to-writing-safe-code-8169486c7132)
 
-## Learning Resources
+## 4. Learning Resources
 
 ### Papers
 
-- [Algebraic Cryptanalysis of the HADES Design
-Strategy: Application to Poseidon and Poseidon2](https://eprint.iacr.org/2023/537.pdf)
+- [Weak Fiat-Shamir Attacks on Modern Proof Systems](https://eprint.iacr.org/2023/691.pdf)
+- [On the practical CPAD security of “exact” and threshold FHE schemes and libraries](https://eprint.iacr.org/2024/116)
+- [Attacks Against the INDCPA-D Security of Exact FHE Schemes](https://eprint.iacr.org/2024/127)
 
 ### Audit Reports
 
@@ -271,13 +215,14 @@ You can directly visit the [solodit](https://solodit.xyz/) website to get some o
 
 - [0xPARC Blog](https://0xparc.org/blog)
 - [zkHACK Blog](https://zkhack.dev/blog/)
-- [LambdaClass Blog](https://blog.lambdaclass.com/)
 - [NCC Group Research Blog](https://research.nccgroup.com/)
-- [Nethermind Blog](https://www.nethermind.io/blogs)
+- [Zellic Blog](https://www.zellic.io/blog/)
 - [zkSecurity Blog](https://www.zksecurity.xyz/blog/)
+- [David Wong Blog](https://www.cryptologie.net/)
+- [LambdaClass Blog](https://blog.lambdaclass.com/)
+- [Nethermind Blog](https://www.nethermind.io/blogs)
 - [Ingonyama Blog](https://www.ingonyama.com/blog)
 - [Open Zeppelin Blog](https://blog.openzeppelin.com/)
-- [sec3 Blog](https://www.sec3.dev/blog)
 - [samczsun' Blog](https://samczsun.com/)
 
 ### zkHACK/CTF/Puzzles
@@ -297,6 +242,20 @@ writeups
 - [2023 Ingonyama CTF WP by shuklaayush](https://hackmd.io/@shuklaayush/SkWizdyBh)
 - [2023 Ingonyama CTF Official WP](https://github.com/ingonyama-zk/zkctf-2023-writeups)
 - 
+
+### Tools
+| Tool | Technique | UC	| OC | CE |
+| - | - | - | - | - | 
+| Circomspect | SA | ✓ | ✗ | ✗ |
+| ZKAP | SA	| ✓	| ✗	| ✗ |
+| halo2-analyzer | SA | ✓	| ✓ |	✗ |
+| Coda | FV	| ✓	| ✓	| ✓ |
+| Ecne | FV | ✓ |	✗ | ✗ |
+| Picus | FV | ✓ | ✗ | ✗ |
+| Aleo | FV | ✓ | ✓ | ✓ |
+| SnarkProbe | DA | ✓ |	✓	| ✗ |
+| CIVER|FV|✓|✗|✗ |
+| GNARK/Lean | FV | ✓ | ✓	| ✓ |
 
 ### Videos
 

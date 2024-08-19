@@ -1,7 +1,7 @@
 # Awesome zero knowledge proofs security
 [![Awesome](https://camo.githubusercontent.com/715ee701c8a9a0dbe30aac69ed79f5712a6542f5a482a3940084ce76d494a779/68747470733a2f2f617765736f6d652e72652f62616467652e737667)](https://awesome.re/) A curated list of awesome things related to learning zero knowledge proofs security
 
-<div align=center><img src="assets/Zero Knowledge Security.png" style="zoom:50%;"></div>
+<div align=center><img src="Assets/Zero Knowledge Security.png" style="zoom:50%;"></div>
 
 ## Table of Content
 - [Awesome zero knowledge proofs security](#awesome-zero-knowledge-proofs-security)
@@ -44,7 +44,7 @@ As with other programming field, the primary technical risk faced by both is cod
 
 I strongly recommand everyone to learn ZK Security from the perspective of zkapp. The following figure from [Aumasson'slides](https://www.aumasson.jp/data/talks/zksec_zk7.pdf) which provide us with a good layered display.
 
-<div align=center><img src="assets/dc_zk.png" style="zoom:50%;"></div>
+<div align=center><img src="Assets/dc_zk.png" style="zoom:50%;"></div>
 
 To be more precise, circuits implementation comes with its own set of vulnerability classification, disjoint from the low-level cryptography bugs that may be found in the proving system.
 

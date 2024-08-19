@@ -1,0 +1,2 @@
+# Arithmetic Over/Under Flow
+- (Halo2-Rust) [Scroll wave1: Zero modulus will cause a panic](https://github.com/nullity00/zk-security-reviews/blob/main/Scroll/2023-04-scroll-zkEVM-wave1-securityreview.pdf)

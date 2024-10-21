@@ -1,5 +1,5 @@
 # Awesome zero knowledge proofs security
-[![Awesome](https://camo.githubusercontent.com/715ee701c8a9a0dbe30aac69ed79f5712a6542f5a482a3940084ce76d494a779/68747470733a2f2f617765736f6d652e72652f62616467652e737667)](https://awesome.re/) A curated list of awesome things related to learning zero knowledge proofs security
+[![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://awesome.re/) A curated list of awesome things related to learning zero knowledge proofs security
 
 <div align=center><img src="assets/Zero Knowledge Security.png" style="zoom:50%;"></div>
 
@@ -104,6 +104,7 @@ To sum up, most vulnerabilities of proving system are **Unstandardized Cryptogra
 ### circom
 
 - [blockdev's slides](https://hackmd.io/@blockdev/Bk_-jRkXa#/)
+- [Best Practices for Large Circom Circuits](https://hackmd.io/V-7Aal05Tiy-ozmzTGBYPA?view)
 
 ### cairo
 
@@ -136,13 +137,15 @@ To sum up, most vulnerabilities of proving system are **Unstandardized Cryptogra
 - [Weak Fiat-Shamir Attacks on Modern Proof Systems](https://eprint.iacr.org/2023/691.pdf)
 - [On the practical CPAD security of “exact” and threshold FHE schemes and libraries](https://eprint.iacr.org/2024/116)
 - [Attacks Against the INDCPA-D Security of Exact FHE Schemes](https://eprint.iacr.org/2024/127)
+- [Automated Analysis of Halo2 Circuits](https://ceur-ws.org/Vol-3429/paper3.pdf)
 
 ### Blogs
 
 #### Worth a look
 
-- [Consensys: Endeavors into the zero-knowledge Halo2 proving system](https://consensys.io/diligence/blog/2023/07/endeavors-into-the-zero-knowledge-halo2-proving-system/#:~:text=How%20can%20bugs%20happen%20in%20Halo2%20circuits%3F)
-- [Automated Analysis of Halo2 Circuits](https://ceur-ws.org/Vol-3429/paper3.pdf)
+- [Endeavors into the zero-knowledge Halo2 proving system](https://consensys.io/diligence/blog/2023/07/endeavors-into-the-zero-knowledge-halo2-proving-system/#:~:text=How%20can%20bugs%20happen%20in%20Halo2%20circuits%3F) by Consensys Diligence
+- [Frozen Heart](https://blog.trailofbits.com/2022/04/13/part-1-coordinated-disclosure-of-vulnerabilities-affecting-girault-bulletproofs-and-plonk/) by Trail of bits.
+- [Two Vulnerabilities in gnark's Groth16 Proofs](https://www.zellic.io/blog/gnark-bug-groth16-commitments/) by Zellic.
 
 #### Resources
 
@@ -151,12 +154,14 @@ To sum up, most vulnerabilities of proving system are **Unstandardized Cryptogra
 - [NCC Group Research Blog](https://research.nccgroup.com/)
 - [Zellic Blog](https://www.zellic.io/blog/)
 - [zkSecurity Blog](https://www.zksecurity.xyz/blog/)
+- [Rot256 Blog](https://rot256.dev/)
 - [David Wong Blog](https://www.cryptologie.net/)
 - [LambdaClass Blog](https://blog.lambdaclass.com/)
 - [Nethermind Blog](https://www.nethermind.io/blogs)
 - [Ingonyama Blog](https://www.ingonyama.com/blog)
 - [Open Zeppelin Blog](https://blog.openzeppelin.com/)
-- [samczsun' Blog](https://samczsun.com/)
+- [samczsum Blog](https://samczsun.com/)
+- [Xor0v0 Blog](https://xor0v0.github.io/ZK-Puzzle-Writeups/)
 
 ### Videos
 

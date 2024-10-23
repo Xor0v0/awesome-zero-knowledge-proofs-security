@@ -73,8 +73,8 @@ Missing constraints or under-constrained is the most common bug in zk circuits, 
 it is a very generalized type of bug, and we divide it into 4 sub issues and give our reason:
 
 - [General Logic](./Circuits%20Bugs/Soundness/General%20Logic%20Bug.md)
-- [Arithmetic Over/Under Flow](./Circuits%20Bugs/Soundness/Arithmetic%20Over\Under%20Flow/)
-- [Mismatched Types/Lengths](./Circuits%20Bugs/Soundness/Mismatched%20types\lengths/)
+- [Arithmetic Over/Under Flow](./Circuits%20Bugs/Soundness/Arithmetic%20Over%20or%20Under%20Flow.md)
+- [Mismatched Types/Lengths](./Circuits%20Bugs/Soundness/Mismatched%20Type%20or%20Length.md)
 - [Non-determinism](./Circuits%20Bugs/Soundness/Non-determinism.md)
 - [Assigned but not Constrained](./Circuits%20Bugs/Soundness/Assigned%20but%20not%20constrained.md)
 - [Compiler Optimization](./Circuits%20Bugs/Soundness/Compiler%20Optimization.md)

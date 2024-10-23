@@ -1,12 +1,20 @@
-# Data Validation
+# Mismatched Type or Length
 
-Data validation is a very generalized  vulnerability, which means any security issues resulting from lack of checks on data and its arithmetic operations can be classified into this category.
+## Introduction
 
-In the zk field, due to finite field operations, we specifically separate [arithmetic over/under flow](../Arithmetic%20Over\Under%20Flow.md) from data validation and emphasize it separately.
+Mismatched type or length is a bug developers do not perform sanitization or check on the the type or length of the inputs, which will result in unexpected behavior, even panic. This is something that pragues us always in securty especially in memory unsafe language. 
 
-## Case 1: Scroll zkTrie - Unchecked usize to c_int casts allow hash collisions by length
+Even strongly typed languages like Rust can potentially lead to the aforementioned vulnerability. For example, in Rust, using `as` for type casting performs a truncation rather than raising a warning, which is a design decision balancing safety, performance, and developer control. Rust places the responsibility on the developer to ensure correct type conversions when using `as`. If a safer conversion is needed, Rust offers alternatives, like: `TryFrom` and `Tryinto` trait.
 
-### Background
+## Case
+
+### 1: Scroll zkTrie - Unchecked usize to c_int casts allow hash collisions by length
+
+| Identifier | Severity | Location | Status |
+| :--------: | :------: | :------: | :----: |
+| Trail of Bit |   High   | [lib.rs](https://github.com/scroll-tech/zktrie/blob/90179c19281670f41c54bd80ab01e4d64c860521/src/lib.rs#L134C1-L138C6) | [fixed](https://github.com/scroll-tech/zktrie/commit/9d28429589c4703d7d20e01d82f280c37e4022a6) |
+
+#### Background
 
 According to the [docs](https://docs.scroll.io/en/technology/sequencer/zktrie/), zkTrie is a sparse binary merkle patricia trie used to store key-value pairs efficiently. It explains the tree structure, construction, node hashing, and tree operations, including insertion and deletion.
 
@@ -43,7 +51,7 @@ h{domain_value}(input1, input2)
     leafNodeHash = h{LeafNodeType}(nodeKey, valueHash)
     ```
 
-### Vuln Description
+#### Vuln Description
 
 We noticed that the implementation of zktrie uses FFI (Foreign Function Interface) to link C code compiled from Go code. In this scenario, we need to pay attention to casting issues, i.e. data truncation, pointer type errors, struct alligned issues, signedness conversion issues and character encoding inconsistencies.
 
@@ -125,10 +133,7 @@ This finding also allows an attacker to cause a runtime error by choosing the da
 
 **Impact**: An attacker provides two different byte arrays that will have the same node_hash, breaking the assumption that such nodes are hard to obtain.
 
-### The Fix
+#### The Fix
 
 Consider  have the code perform the cast in a checked manner by using the
 c_int::try_from method to allow validation if the conversion succeeds. Determine whether the Rust functions should allow arbitrary length inputs; document the length requirements and assumptions.
-
-- [Fix commit](9d28429589c4703d7d20e01d82f280c37e4022a6)
-

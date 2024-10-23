@@ -1,0 +1,14 @@
+{
+  "name": "exp",
+  "version": "1.0.0",
+  "description": "poc for scure-starknet",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "micro-starknet": "https://github.com/paulmillr/scure-starknet#07b25e9997b45a0c0d83ced2c0272306143f0660"
+  }
+}

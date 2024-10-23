@@ -1,6 +1,6 @@
 # Compiler Optimization
 
-## Definition
+## Introduction
 
 Unused public input
 

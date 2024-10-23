@@ -1,12 +1,20 @@
 # Front Running
 
+## Introduction
+
 Front-running attacks take on a sophisticated form in cryptocurrency. The essence of `Front-running` is to utilize the transparency and time difference of transactions on the blockchain, and to "jump the queue" through higher transaction fees (such as gas fees on Ethereum), in order to complete similar operations before others' transactions.
 
 With front-running attacks, hackers can do evil at a higher cost. It is usually an architectural design problem.
 
-## Case 1: RLN: Spammers may slash themselves
+## Case
 
-### Summary
+###  1: RLN: Spammers may slash themselves
+
+| Identifier | Severity | Location | Status |
+| :--------: | :------: | :------: | :----: |
+| Veridise | Medium | [withdraw.circom](https://github.com/Rate-Limiting-Nullifier/circom-rln/blob/022b690b5615d1e26874013cf216136875d8f3ab/circuits/withdraw.circom)|Acknowledged|
+
+#### Background
 
 Applications using RLN and economic stake to implement spam resistance may suffer
 from adversaries with large collateral.
@@ -15,7 +23,7 @@ be able to recover their economic stake.
 
 Identified in the [audit report](https://github.com/nullity00/zk-security-reviews/blob/main/RLN/VAR-RLN.pdf) by [Veridise](https://veridise.com/) 
 
-### Vuln Description
+#### Description
 
 [withdraw.circom](https://github.com/Rate-Limiting-Nullifier/circom-rln/blob/022b690b5615d1e26874013cf216136875d8f3ab/circuits/withdraw.circom) is a template that used for withdrawal/slashing and is needed to prevent frontrun while withdrawing the stake from the smart-contract/registry.
 
@@ -39,7 +47,7 @@ on her identityCommitment.
 3. Alice front-runs the request, slashing herself (since she knows her own identitySecret)
 and recovering her 1 coin.
 
-### The fix
+#### The fix
 
 One simple fix is to add documentation describing the potential issue, and recommend that applications **only give a portion of the staked amount to the slasher**. For
 instance, half of the stake could be given to the slasher, and the remaining half split amongst all non-malicious protocol participants.

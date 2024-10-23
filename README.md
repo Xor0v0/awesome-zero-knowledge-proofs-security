@@ -4,31 +4,31 @@
 <div align=center><img src="Assets/Zero Knowledge Security.png" style="zoom:50%;"></div>
 
 ## Table of Content
-- [Awesome zero knowledge proofs security](#awesome-zero-knowledge-proofs-security)
-  - [Table of Content](#table-of-content)
-  - [1. Introduction](#1-introduction)
-  - [2. Vulnerability Classification](#2-vulnerability-classification)
-    - [FrontEnd: Circuits](#frontend-circuits)
-      - [Soundness Error (Under-constrained)](#soundness-error-under-constrained)
-      - [Completeness Error (Over-constrained)](#completeness-error-over-constrained)
-      - [Zero Knowledge Error](#zero-knowledge-error)
-    - [Misc: Witness Generation \& Arithemtization](#misc-witness-generation--arithemtization)
-    - [BackEnd: Proving system](#backend-proving-system)
-  - [3. Security Consideration](#3-security-consideration)
-    - [circom](#circom)
-    - [cairo](#cairo)
-  - [4. Learning Resources](#4-learning-resources)
-    - [Books \& Docs](#books--docs)
-    - [Papers](#papers)
-    - [Blogs](#blogs)
-      - [Worth a look](#worth-a-look)
-      - [Resources](#resources)
-    - [Videos](#videos)
-    - [Audit Reports](#audit-reports)
-    - [Tools](#tools)
-    - [zkHACK/CTF/Puzzles](#zkhackctfpuzzles)
-    - [Miscellaneous](#miscellaneous)
-  - [Acknowledgements](#acknowledgements)
+- [Table of Content](#table-of-content)
+- [1. Introduction](#1-introduction)
+- [2. Vulnerability Classification](#2-vulnerability-classification)
+  - [Architectureal Design Flaws](#architectureal-design-flaws)
+  - [FrontEnd: Circuits](#frontend-circuits)
+    - [Soundness Error (Under-constrained)](#soundness-error-under-constrained)
+    - [Completeness Error (Over-constrained)](#completeness-error-over-constrained)
+    - [Zero Knowledge Error](#zero-knowledge-error)
+  - [Misc: Witness Generation \& Arithemtization](#misc-witness-generation--arithemtization)
+  - [BackEnd: Proving system](#backend-proving-system)
+- [3. Security Consideration](#3-security-consideration)
+  - [circom](#circom)
+  - [cairo](#cairo)
+- [4. Learning Resources](#4-learning-resources)
+  - [Books \& Docs](#books--docs)
+  - [Papers](#papers)
+  - [Blogs](#blogs)
+    - [Worth a look](#worth-a-look)
+    - [Resources](#resources)
+  - [Videos](#videos)
+  - [Audit Reports](#audit-reports)
+  - [Tools](#tools)
+  - [zkHACK/CTF/Puzzles](#zkhackctfpuzzles)
+  - [Miscellaneous](#miscellaneous)
+- [Acknowledgements](#acknowledgements)
 
 
 
@@ -60,14 +60,19 @@ Meanwhile, it also aligns with many traditional programming fields, such as reve
 
 Therefor, the scope of programs above zkVM is much boarder, including smart contracts ([Solidity](https://soliditylang.org/), [Cairo](https://www.cairo-lang.org/)) and other traditional programs, which security will not be discussed here for now.
 
+### Architectureal Design Flaws
+
+- [Front Running](./Architectural%20Design%20Flaws/Front-Running.md)
+
 ### FrontEnd: Circuits
 
 #### Soundness Error (Under-constrained)
 
-- General Logic
-  - [Front Running](./Circuits%20Bugs/Soundness/General%20Logic/Front-Running.md)
-  - [Replay](./Circuits%20Bugs/Soundness/General%20Logic/Replay.md)
-  - [Double Spending](./Circuits%20Bugs/Soundness/General%20Logic/Double-Spending.md)
+Missing constraints or under-constrained is the most common bug in zk circuits, which occurs when a system, **fails to enforce necessary limitations or conditions** on inputsor operations. This could be due to absent validation checks, insufficient boundary enforcement, or improper assumptions about input data. As a result, users or attackers can manipulate or bypass expected behavior, leading to unintended consequences, security issues, or data corruption. 
+
+it is a very generalized type of bug, and we divide it into 4 sub issues and give our reason:
+
+- [General Logic](./Circuits%20Bugs/Soundness/General%20Logic%20Bug.md)
 - [Arithmetic Over/Under Flow](./Circuits%20Bugs/Soundness/Arithmetic%20Over\Under%20Flow/)
 - [Mismatched Types/Lengths](./Circuits%20Bugs/Soundness/Mismatched%20types\lengths/)
 - [Non-determinism](./Circuits%20Bugs/Soundness/Non-determinism.md)

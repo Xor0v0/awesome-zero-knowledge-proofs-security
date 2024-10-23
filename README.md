@@ -70,7 +70,7 @@ Therefor, the scope of programs above zkVM is much boarder, including smart cont
 
 Missing constraints or under-constrained is the most common bug in zk circuits, which occurs when a system, **fails to enforce necessary limitations or conditions** on inputsor operations. This could be due to absent validation checks, insufficient boundary enforcement, or improper assumptions about input data. As a result, users or attackers can manipulate or bypass expected behavior, leading to unintended consequences, security issues, or data corruption. 
 
-it is a very generalized type of bug, and we divide it into 4 sub issues and give our reason:
+This is a very general type of bug, and we divide it into 6 sub issues:
 
 - [General Logic](./Circuits%20Bugs/Soundness/General%20Logic%20Bug.md)
 - [Arithmetic Over/Under Flow](./Circuits%20Bugs/Soundness/Arithmetic%20Over%20or%20Under%20Flow.md)
@@ -98,11 +98,11 @@ The backend is the proving system that leans towards the cryptographic part, so 
 
 To sum up, most vulnerabilities of proving system are **Unstandardized Cryptographic Implementation**.
 
-- [Frozen Heart]()
-- [Lack of Domain Seperation]()
-- [Bad Polynomial Implementation]()
-- [Missing Curve Point check]()
-- [Unseure Hash Function]()
+- [Bad Polynomial Implementation](./Proving%20System%20Bugs/Bad%20Polynomial%20Impl.md)
+- [Frozen Heart](./Proving%20System%20Bugs/Frozen%20Heart.md)
+- [Lack of Domain Seperation](./Proving%20System%20Bugs/Lack%20of%20Domain%20Seperation.md)
+- [Missing Curve Point check](./Proving%20System%20Bugs/Missing%20Curve%20Point%20Check.md)
+- [Unseure Hash Function](./Proving%20System%20Bugs/Unsecure%20Hash%20Function.md)
 
 ## 3. Security Consideration
 

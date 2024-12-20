@@ -12,7 +12,7 @@
 
 ## Introduction
 
-Hash function is used to map a message of arbitrary length to a fixed-length message digest. and is sort of one way function where it is easy to compute the output from a given input, but computationally infeasible to reverse the process. 
+Hash function is used to mapping a message of arbitrary length to a fixed-length message digest. and is sort of one way function where it is easy to compute the output from a given input, but computationally infeasible to reverse the process. 
 
 - Collision-Resistent: Attackers can not find 2 different inputs $x_1, x_2$ that $h(x_1) = h(x_2)$ holds,
 - Hiding: The output $y$ does not leak any information about the input $x$.

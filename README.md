@@ -21,12 +21,13 @@
   - [Books \& Docs](#books--docs)
   - [Papers](#papers)
   - [Blogs](#blogs)
-    - [Worth a look](#worth-a-look)
+    - [Highlights](#highlights)
     - [Resources](#resources)
-  - [Videos](#videos)
+  - [Videos \& Podcast](#videos--podcast)
   - [Audit Reports](#audit-reports)
   - [Tools](#tools)
   - [zkHACK/CTF/Puzzles](#zkhackctfpuzzles)
+  - [Lectures](#lectures)
   - [Miscellaneous](#miscellaneous)
 - [Acknowledgements](#acknowledgements)
 
@@ -133,7 +134,8 @@ To sum up, most vulnerabilities of proving system are **Unstandardized Cryptogra
 - [Proofs, Arguments, and Zero-Knowledge (PAZK)](https://people.cs.georgetown.edu/jthaler/ProofsArgsAndZK.pdf) by Thaler.
 - [Hash-based SNARGs-Book](https://github.com/hash-based-snargs-book/hash-based-snargs-book/blob/main/snargs-book.pdf) by Alessandro Chiesa and Eylon Yogev.
 - [ZKDocs](https://www.zkdocs.com/) by [Trail of Bits](https://www.trailofbits.com/)
-- [The RareSkills Book of Zero Knowledge](https://www.rareskills.io/zk-book) Not fully disclosed :(
+- [The RareSkills Book of Zero Knowledge](https://www.rareskills.io/zk-book) Not fully disclosed :(.
+- [Pairings for beginners](https://static1.squarespace.com/static/5fdbb09f31d71c1227082339/t/5ff394720493bd28278889c6/1609798774687/PairingsForBeginners.pdf)
 
 ### Papers
 
@@ -146,7 +148,7 @@ To sum up, most vulnerabilities of proving system are **Unstandardized Cryptogra
 
 ### Blogs
 
-#### Worth a look
+#### Highlights
 
 - [Endeavors into the zero-knowledge Halo2 proving system](https://consensys.io/diligence/blog/2023/07/endeavors-into-the-zero-knowledge-halo2-proving-system/#:~:text=How%20can%20bugs%20happen%20in%20Halo2%20circuits%3F) by Consensys Diligence
 - [Frozen Heart](https://blog.trailofbits.com/2022/04/13/part-1-coordinated-disclosure-of-vulnerabilities-affecting-girault-bulletproofs-and-plonk/) by Trail of bits.
@@ -168,10 +170,25 @@ To sum up, most vulnerabilities of proving system are **Unstandardized Cryptogra
 - [samczsum Blog](https://samczsun.com/)
 - [Xor0v0 Blog](https://xor0v0.github.io/ZK-Puzzle-Writeups/)
 
-### Videos
 
+### Videos & Podcast
+- [Zero Knowledge Youtube](https://www.youtube.com/@zeroknowledgefm) by Zero Knowledge.
+- [Zero Knowledge Podcast](https://www.youtube.com/playlist?list=PLj80z0cJm8QEUVSlofe1Zd7wyaoZrixFM) by Zero Knowledge.
+- [ZK Whiteboard Sessions](https://zkhack.dev/whiteboard/) by ZK Hack.
+- [ZK Submit](https://www.youtube.com/playlist?list=PLj80z0cJm8QFnY6VLVa84nr-21DNvjWH7) by Zero Knowledge.
+- [ZK Study Club](https://www.youtube.com/playlist?list=PLj80z0cJm8QHm_9BdZ1BqcGbgE-BEn-3Y) by Zero Knowledge.
+- [ZKP Mooc](https://zk-learning.org/) by Dan Boneh, Shafi Goldwasser, Dawn Song, Justin Thaler, Yupeng Zhang. 
+- [Thaler Book Study Club](https://www.youtube.com/playlist?list=PLj80z0cJm8QEmZkGgSOLpr_8B08SCWVQ7) by Thaler.
+- [A16Z Summer Research Seminars](https://www.youtube.com/playlist?list=PLjQ9HCQMu_8yPGgfvsscHgt1w1KJkx8BN) by A16Z Crypto.
 - [Introduction to ZK Security Research](https://www.youtube.com/watch?v=P2OVtcsSZSQ)  by David Theodore from EF. This classification of bugs in zk-circuits is widely accepted.
-- [zBlock1](https://yacademy.dev/fellowships/zBlock1) by yAcademy. 「Very worth a look!!」 
+- [zBlock1](https://yacademy.dev/fellowships/zBlock1) by yAcademy. 
+- [Moon Math Club](https://www.youtube.com/playlist?list=PLormosL00ryKvlKvMgezcSBtANAhqkm44) by Ingonyama
+- [The PLONK zero knoledge proof system](https://www.youtube.com/playlist?list=PLBJMt6zV1c7Gh9Utg-Vng2V6EYVidTFCC) by David Wong.
+- [Foundations of Probabilistic Proofs](https://www.youtube.com/playlist?list=PLGkwtcB-DfpzST-medFVvrKhinZisfluC) by Alessandro Chiesa.
+- [Probabilistically Checkable Proofs and Interactive Proofs](https://www.youtube.com/playlist?list=PLkFD6_40KJIyWWtxCPBHwGsrutjvwM5_U)
+- [Zero-knowledge proof composition and incursion](https://www.youtube.com/playlist?list=PLBJMt6zV1c7GeKkR2SUhzx9KSJ9TsEx6n) by David Wong.
+- [An introduction to the Arithmetic of Elliptic Curve](https://www.youtube.com/playlist?list=PLYpVTXjEi1oe1OeAllJpNhFoI4B7Ws8Yl) by Alvaro Lozano-Robledo.
+
 ### Audit Reports
 
 - [ZK Related Security Reviews](https://github.com/nullity00/zk-security-reviews) of ZK Protocols by [nullity](https://github.com/nullity00). Consists of Security Reports of 50+ ZK Protocols.
@@ -221,6 +238,10 @@ writeups
 
 - [2023 Ingonyama CTF WP by shuklaayush](https://hackmd.io/@shuklaayush/SkWizdyBh)
 - [2023 Ingonyama CTF Official WP](https://github.com/ingonyama-zk/zkctf-2023-writeups)
+
+### Lectures
+
+[Algebraic Error Correcting Codes](https://web.stanford.edu/~marykw/classes/CS250_W18/index.html)
 
 ### Miscellaneous
 

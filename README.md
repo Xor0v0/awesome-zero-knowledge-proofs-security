@@ -135,7 +135,8 @@ To sum up, most vulnerabilities of proving system are **Unstandardized Cryptogra
 - [Hash-based SNARGs-Book](https://github.com/hash-based-snargs-book/hash-based-snargs-book/blob/main/snargs-book.pdf) by Alessandro Chiesa and Eylon Yogev.
 - [ZKDocs](https://www.zkdocs.com/) by [Trail of Bits](https://www.trailofbits.com/)
 - [The RareSkills Book of Zero Knowledge](https://www.rareskills.io/zk-book) Not fully disclosed :(.
-- [Pairings for beginners](https://static1.squarespace.com/static/5fdbb09f31d71c1227082339/t/5ff394720493bd28278889c6/1609798774687/PairingsForBeginners.pdf)
+- [Pairings for beginners](https://static1.squarespace.com/static/5fdbb09f31d71c1227082339/t/5ff394720493bd28278889c6/1609798774687/PairingsForBeginners.pdf) by Craig Costello.
+- [ZKPunk](https://www.zkpunk.pro/): A content platform centered around Zero-Knowledge Proof (ZKP) technology, dedicated to promoting its adoption and development
 
 ### Papers
 
@@ -249,6 +250,7 @@ writeups
 - [0xPARC zk-bug-tracker](https://github.com/0xPARC/zk-bug-tracker) by [0xPARC](https://0xparc.org/) and [PSE](https://pse.dev/).
 - BUG Bounty platform: [code4rena](https://code4rena.com/), [Immunefi](https://immunefi.com/).
 - [l2-security-framework by QuantStamp](https://github.com/quantstamp/l2-security-framework)
+- [MyZKP: Building Zero Knowledge Proof from Scratch in Rust](https://koukyosyumei.github.io/MyZKP/index.html)
 
 ## Acknowledgements
 

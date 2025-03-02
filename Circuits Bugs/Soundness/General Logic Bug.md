@@ -11,7 +11,7 @@
 
 ## Introduction
 
- This type of problem is usually caused by a lack of necessary conditions or limitations in the system's business logic, resulting in system behavior deviating from exxample, no distinguishing leaf nodes and branch nodes in Merkle trees.
+ This type of problem is usually caused by a lack of necessary conditions or limitations in the system's business logic, resulting in system behavior deviating from expectation, no distinguishing leaf nodes and branch nodes in Merkle trees.
 
 ## Case
 

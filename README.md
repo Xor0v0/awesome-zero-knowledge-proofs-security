@@ -237,6 +237,7 @@ Cairo:
 
 writeups
 
+- [Secureum bootcamp/race writeup](https://ventral.digital/secureum-auditor-bootcamp-2021-quizzes/)
 - [2023 Ingonyama CTF WP by shuklaayush](https://hackmd.io/@shuklaayush/SkWizdyBh)
 - [2023 Ingonyama CTF Official WP](https://github.com/ingonyama-zk/zkctf-2023-writeups)
 
